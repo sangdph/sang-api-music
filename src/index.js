@@ -15,18 +15,9 @@ app.set("view engine", ".hbs");
 app.set("views", "./src/views");
 
 console.log("dotenv: ", process.env.MONGO_DB);
-mongoose
-  .connect(process.env.MONGO_DB)
-  .then(() => {
-    console.log("Connect DB success");
-  })
-  .catch((error) => {
-    console.log("error: ", error);
-  });
-
-routes(app);
 
 app.use(function (req, res, next) {
+  console.log(process.env.URL);
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", process.env.URL);
 
@@ -49,6 +40,17 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
+
+mongoose
+  .connect(process.env.MONGO_DB)
+  .then(() => {
+    console.log("Connect DB success");
+  })
+  .catch((error) => {
+    console.log("error: ", error);
+  });
+
+routes(app);
 
 app.listen(port, () => {
   console.log("Sever is running in port: ", port);
