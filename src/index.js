@@ -19,6 +19,7 @@ console.log("dotenv: ", process.env.MONGO_DB);
 app.use(function (req, res, next) {
   console.log(process.env.URL);
   // Website you wish to allow to connect
+  // res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Origin", process.env.URL);
 
   // Request methods you wish to allow
